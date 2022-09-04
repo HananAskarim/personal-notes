@@ -1,6 +1,7 @@
 import React from "react";
 import { getInitialData } from "../utils/data";
 import NoteAppBody from "./NoteAppBody";
+import NoteAppHeader from "./NoteAppHeader";
 
 class NoteApp extends React.Component {
     constructor(props) {
@@ -43,12 +44,15 @@ class NoteApp extends React.Component {
 
     render() {
         return ( 
-            <NoteAppBody 
-                addNote={this.onAddNoteHandler} 
-                notes={this.state.notes} 
-                onDelete={this.onDeleteHandler} 
-                onArchive={this.onArchiveHandler}
-            />
+            <div>
+                <NoteAppHeader />
+                <NoteAppBody 
+                    addNote={this.onAddNoteHandler} 
+                    notes={this.state.notes} 
+                    onDelete={this.onDeleteHandler} 
+                    onArchive={this.onArchiveHandler}
+                />
+            </div>
         );
     }
 }
