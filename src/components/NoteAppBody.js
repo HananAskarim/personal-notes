@@ -2,11 +2,18 @@ import React from "react";
 import NoteList from "./NoteList";
 import NoteInput from "./NoteInput";
 
-function NoteAppBody({ notes, addNote, onDelete, onArchive }) {
+function NoteAppBody({ notes, addNote, onDelete, onArchive, searchedTitle, searchedNotes }) {
     let notesActive = null;
     let notesArchived = null;
-    notesActive = notes.filter((note) => note.archived === false);
-    notesArchived = notes.filter((note) => note.archived === true);
+
+    if (searchedTitle.length > 0) {
+        notesActive = searchedNotes.filter((note) => note.archived === false);
+        notesArchived = searchedNotes.filter((note) => note.archived === true);        
+    } else {
+        notesActive = notes.filter((note) => note.archived === false);
+        notesArchived = notes.filter((note) => note.archived === true);
+    }
+
     return (
         <div className="note-app__body">
             <NoteInput addNote={addNote} />
