@@ -1,7 +1,6 @@
 import React from "react";
-import NoteList from "./NoteList";
 import { getInitialData } from "../utils/data";
-import NoteInput from "./NoteInput";
+import NoteAppBody from "./NoteAppBody";
 
 class NoteApp extends React.Component {
     constructor(props) {
@@ -12,6 +11,7 @@ class NoteApp extends React.Component {
 
         this.onDeleteHandler = this.onDeleteHandler.bind(this);
         this.onAddNoteHandler = this.onAddNoteHandler.bind(this);
+        this.onArchiveHandler = this.onArchiveHandler.bind(this);
     }
 
     onDeleteHandler(id) {
@@ -36,13 +36,19 @@ class NoteApp extends React.Component {
         });
     }
 
+    onArchiveHandler(id) {
+        const updateArchive = this.state.notes.filter((note) => note.id === id).map((note) => (note.archived = !note.archived));
+        this.setState({ updateArchive });
+    }
+
     render() {
-        return (
-            <div className="note-app__body">
-                <NoteInput addNote={this.onAddNoteHandler} />
-                <h2>Catatan Aktif</h2>
-                <NoteList notes={this.state.notes} onDelete={this.onDeleteHandler} />
-            </div>
+        return ( 
+            <NoteAppBody 
+                addNote={this.onAddNoteHandler} 
+                notes={this.state.notes} 
+                onDelete={this.onDeleteHandler} 
+                onArchive={this.onArchiveHandler}
+            />
         );
     }
 }
